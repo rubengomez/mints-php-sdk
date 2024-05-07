@@ -1,0 +1,24 @@
+{
+    "name": "rubengomez/mints",
+    "description": "MINTS library allows to connect your Laravel App to MINTS.CLOUD\n\n",
+    "version": "0.0.1",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ruben Gomez",
+            "email": "ruben@mints.cloud"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Mints\\": "src/"
+        }
+    },
+    "require": {
+        "ext-json": "*",
+        "doctrine/inflector": "^2.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "predis/predis": "^1.1"
+    },
+    "license": "MIT"
+}
