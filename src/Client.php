@@ -61,7 +61,6 @@ class Client
         }
 
         $fullUrl = $this->host . $baseUrl . $url . (isset($uri) ? "?{$uri}" : "");
-
         // Catch the exception if the file does not exist
 //        try {
 //            // read mints_config.yml from root directory, and parse it
@@ -137,8 +136,10 @@ class Client
         // Set baseURL to the correct value based on the scope
         switch ($scope) {
             case 'public':
-            case 'contact':
                 $this->baseURL = '/api/v1';
+                break;
+            case 'contact':
+                $this->baseURL = '/api/contact/v1';
                 break;
             case 'user':
                 $this->baseURL = '/api/user/v1';

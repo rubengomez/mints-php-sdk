@@ -6,7 +6,7 @@ trait UserAuthTrait
 {
     public User $mintsUser;
 
-    public function initializeClient($host = null, $apiKey = null, $sessionToken = null, $debug = false, $timeouts = []): void
+    public function initializeUserClient($host = null, $apiKey = null, $sessionToken = null, $debug = false, $timeouts = []): void
     {
         // Check if mints_session_token cookie exists, then set session token from cookie
         if (isset($_COOKIE['mints_user_session_token'])) {

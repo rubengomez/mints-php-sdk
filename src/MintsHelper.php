@@ -19,4 +19,26 @@ class MintsHelper
             return $client->raw('get', $url, $options);
         }
     }
+
+    public static function dataTransform($data)
+    {
+        $data = self::correctJson($data);
+
+        if (!isset($data['data'])) {
+            $data = ['data' => $data];
+        }
+
+        return $data;
+    }
+
+    public static function correctJson($data)
+    {
+        if (is_string($data)) {
+            $data = json_decode($data, true);
+        }
+
+        return array_map('strval', array_change_key_case($data, CASE_LOWER));
+    }
+
+
 }

@@ -1,16 +1,29 @@
-User Auth Trait
+Auth Trait Usage
 -----------
 - User Auth Trait is a trait that is used to authenticate users in the application.
+- Contact Auth Trait is a trait that is used to authenticate contacts in the application.
+- Public Auth Trait is a trait that is used to access public data in the application. 
 ```php
 use Mints\UserAuthTrait;
+use Mints\ContactAuthTrait;
+use Mints\PublicAuthTrait;
 ```
-Mints User Usage
+Mints User, Contact and Public Usage
 -----------
 ```php
-// User Login 
+// User Login
+$this->initializeUserClient();
 $this->mintsUserLogin('email', 'password');
-// get contacts
-$response = $this->mintsUser->getContacts();
+$response = $this->mintsUser->getContacts(); // get contacts
+
+// Contact Login
+$this->initializeContactClient();
+$this->mintsContactLogin('email', 'password');
+$response = $this->mintsContact->getOrders(); // get orders
+
+// Public trait usage
+$this->initializePublicClient();
+$response = $this->mintsPublic->getStoryVersions(null, false); // get story versions
 ```
 Proxy Usage
 -----------

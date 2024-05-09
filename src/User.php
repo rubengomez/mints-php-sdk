@@ -2,12 +2,26 @@
 
 namespace Mints;
 
-use Mints\User\Contacts;
+use Mints\User\Contacts\Contacts;
+use Mints\User\Config\Config;
+use Mints\User\Content\Content;
+use Mints\User\Crm\CRM;
+use Mints\User\Ecommerce\Ecommerce;
+use Mints\User\Helpers\Helpers;
+use Mints\User\Marketing\Marketing;
+use Mints\User\Profile\Profile;
 
 class User
 {
-    use Contacts;
-    public $client;
+    use Contacts,
+        Profile,
+        Marketing,
+        Config,
+        Content,
+        CRM,
+        Ecommerce,
+        Helpers;
+    public Client $client;
 
     /**
      * @param $host
@@ -68,5 +82,10 @@ class User
             'redirectUrl' => $redirectUrl,
             'lifeTime' => $lifeTime
         ], '/api/v1');
+    }
+
+    private function dataTransform($data)
+    {
+        return MintsHelper::dataTransform($data);
     }
 }
