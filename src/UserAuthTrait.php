@@ -48,18 +48,19 @@ trait UserAuthTrait
     /**
      * @throws \Exception
      */
-    public function mintsUserMagicLink(string $token): void
+    public function mintsUserMagicLink(string $token)
     {
-        if (!$this->mintsUser) $this->initializeClient();
+        if (!$this->mintsUser) $this->initializeUserClient();
         $response = $this->mintsUser->magicLinkLogin($token);
         // Verify if api_token key exists in response
-        if (!isset($response['api_token'])) {
+        if (!isset($response['data']) && !isset($response['data']['api_token'])) {
             throw new \Exception('Invalid token');
         }
         // Set session token from api_token key response
-        $this->mintsUser->client->setSessionToken($response['api_token']);
+        $this->mintsUser->client->setSessionToken($response['data']['api_token']);
         // Set a cookie called mints_user_session_token with the api_token key response that expires in 1 day
-        setcookie('mints_user_session_token', $response['api_token'], time() + 86400, '/');
+        setcookie('mints_user_session_token', $response['data']['api_token'], time() + 86400, '/');
+        return $response;
     }
 
     /**

@@ -22,7 +22,7 @@ trait ProxyTrait
      */
     public function proxyRequest(Request $request)
     {
-        $url = $this->host . $request->getPathInfo();
+        $url = $this->host . $request->getPathInfo() . '?' . $request->getQueryString();
         $HTTPClient = new \GuzzleHttp\Client();
         $headers = [
             'ApiKey' => $this->apiKey,
@@ -45,7 +45,13 @@ trait ProxyTrait
             $headers['ContactToken'] = $_COOKIE['mints_contact_id'];
         }
 
-        $response = $HTTPClient->request($request->method(), $url, ['headers' => $headers]);
+        $data = $request->input('data');
+        $options = [
+            'headers' => $headers,
+            'json' => $data
+        ];
+
+        $response = $HTTPClient->request($request->method(), $url, $options);
         // return json response
         return response()->json(json_decode($response->getBody()), $response->getStatusCode());
     }
