@@ -55,7 +55,7 @@ class User
         return $this->client->raw('post', '/users/login', null, [
             'email' => $email,
             'password' => $password
-        ], '/api/v1', ['no_content_type' => true]);
+        ], '/api/v1', ['no_content_type' => true], false, false);
     }
 
     /**

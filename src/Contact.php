@@ -44,7 +44,7 @@ class Contact
             'email' => $email,
             'password' => $password
         ];
-        $response = $this->client->raw('post', '/contacts/login', null, $this->dataTransform($data), '/api/v1');
+        $response = $this->client->raw('post', '/contacts/login', null, $this->dataTransform($data), '/api/v1', [], false, false);
         if ($response === null) throw new \Exception('Invalid credentials');
         if (array_key_exists('session_token', $response)) {
             $this->client->setSessionToken($response['session_token']);

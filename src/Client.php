@@ -38,9 +38,9 @@ class Client
         $this->inflector = InflectorFactory::create()->build();
     }
 
-    public function raw($action, $url, $options = null, $data = null, $baseUrl = null, $compatibilityOptions = [], $onlyTracking = false)
+    public function raw($action, $url, $options = null, $data = null, $baseUrl = null, $compatibilityOptions = [], $onlyTracking = false, $dataTransform = true)
     {
-        $data = MintsHelper::dataTransform($data);
+        if ($dataTransform) $data = MintsHelper::dataTransform($data);
         $baseUrl = $baseUrl ?: $this->baseURL;
         $methodCalled = debug_backtrace()[0]['function'];
 
