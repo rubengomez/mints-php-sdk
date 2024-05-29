@@ -40,6 +40,7 @@ class Client
 
     public function raw($action, $url, $options = null, $data = null, $baseUrl = null, $compatibilityOptions = [], $onlyTracking = false)
     {
+        $data = MintsHelper::dataTransform($data);
         $baseUrl = $baseUrl ?: $this->baseURL;
         $methodCalled = debug_backtrace()[0]['function'];
 
@@ -122,10 +123,10 @@ class Client
             }
         }
 
-        if ($resultFromCache) {
+        try {
             return json_decode($response, true);
-        } else {
-            return json_decode($response, true);
+        } catch (\Exception $e) {
+            return $response;
         }
     }
 

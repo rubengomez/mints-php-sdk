@@ -45,14 +45,15 @@ trait ProxyTrait
             $headers['ContactToken'] = $_COOKIE['mints_contact_id'];
         }
 
-        $data = $request->input('data');
+        $data = $request->input();
+        if (empty($data)) $data = null;
+
         $options = [
             'headers' => $headers,
             'json' => $data
         ];
 
         $response = $HTTPClient->request($request->method(), $url, $options);
-        // return json response
-        return response()->json(json_decode($response->getBody()), $response->getStatusCode());
+        return response()->json($response->getBody()->getContents(), $response->getStatusCode());
     }
 }
